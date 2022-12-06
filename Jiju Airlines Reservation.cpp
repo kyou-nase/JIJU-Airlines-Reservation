@@ -1,4 +1,4 @@
-// Jiju Airlines Reservation v.0.0.01
+// Jiju Airlines Reservation v.0.0.03
 
 #include <iostream> 	//standard input/output streams
 #include <iomanip> 	//setw
@@ -45,6 +45,12 @@ bool alpha(string name) { //function to check a string if it contains characters
 
 	}
 	return true;
+}
+
+void ignoreLine() //function to ignore last input of user for cin.fail()
+{
+    cin.clear();
+    cin.ignore();
 }
 
 bool input_validation(string input)
@@ -117,7 +123,7 @@ int main() {
 			}
 		}
 	}
-    cout << logo;
+	cout << logo;
 	//do loading berfore program starts
 	cout<<"\n\n\n\n\n\t\t\t\t\t\xfe JIJU Airlines Reservations is Loading \xfe\n\n";
 	char a=177, b=219;
@@ -129,10 +135,10 @@ int main() {
 	for (int i=0;i<=22;i++)
 	{
 		cout<<b;
-	  	for (int j=0;j<=3e7;j++);
+		for (int j=0;j<=3e7;j++);
 	}
 	system("cls");
-	
+
 	cout << logo;
 	cout << "\n\n\t\t\t ";
 	cout << char(201);      for(int i=0; i<66; i++){cout << char(205);}      cout << char(187) << endl;
@@ -147,7 +153,7 @@ int main() {
 	ShowConsoleCursor(true); //make cursor visible
 
 	cout << logo;
-    cout << "\n\n\n\n\t\t\t  "<< char(201);  for(int i=0; i<63; i++){cout << char(205);}  cout << char(187)<<endl;
+	cout << "\n\n\n\n\t\t\t  "<< char(201);  for(int i=0; i<63; i++){cout << char(205);}  cout << char(187)<<endl;
 	cout << "\t\t\t  "<< char(186) << "                                                               " << char(186) << endl;
 	cout << "\t\t\t  "<< char(186) ;Color(240);cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     " ;Color(241);cout << char(186) << endl;
 	cout << "\t\t\t  "<< char(186) << "                                                               " << char(186) << endl;
@@ -159,21 +165,70 @@ int main() {
 	gotoxy (1, 12);
 	cout << "\t\t\t  "<< char(186) ;Color(240);cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     " ;Color(241);cout << char(186) << endl;
 	gotoxy (86, 12);
-    cin >> flighttype;
+    	cin >> flightType;
 
-    while (flighttype[0] != '2'&&flighttype[0] != '1'||flighttype[1]>0){ //Input Validation
+    	while ((flightType != 2 && flightType != 1) || cin.fail()){ //Input Validation
+		ignoreLine();
 		gotoxy(1, 12);
 		cout << "\t\t\t  "<< char(186) ;Color(240);cout << "   INVALID INPUT, PLEASE RE-ENTER TYPE OF RESERVATION (1-2):   " ;Color(241);cout << char(186) << endl;
 		gotoxy(87, 12);
-		flighttype[1]=0;
-		cin >> flighttype;
+		flightType = 0;
+		cin >> flightType;
 	}
 
-	if (flighttype[0] == '1'){ //Set string to indicate in reciept later on
-		receipt_flighttype = "One-Way";
+	if (flightType == 1){ //Set string to indicate in reciept later on
+		receipt_flightType = "One-Way";
 	}
 	else {
-		receipt_flighttype = "Round Trip";
+		receipt_flightType = "Round Trip";
+	}
+	system("cls");
+
+	cout << logo;
+	//Ask the user where will be the desired location of their booked flight, then prints all of available trip destinations
+	cout << "\n\n\n\n\t\t\t\t      " << char(201);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(187) << endl;
+	cout << "\t\t\t\t      " << char(186) << "            \xfe DESTINATIONS \xfe            " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0 DOMESTIC FLIGHTS \xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0" << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (A) \xb3 Batanes              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (B) \xb3 Bacolod              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (C) \xb3 Palawan              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (D) \xb3 Davao                "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "      Please Refer from the Above       "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << " And Enter Desired Destination(A - D):  "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(200);      for (int i = 0; i < 40; i++) { cout << char(205); }      cout << char(188) << endl;
+	gotoxy(77, 23);
+	getline(cin, destination); 	//Input of user, used getline because of string properties
+
+	while ((destination[0] > 'd'||destination[0] < 'a')&&(destination[0]>'D'||destination[0]<'A')||(destination.length() != 1)){ //input validation if it only contains the letters a-i or it exceeds one character
+		destination = ""; 	//Reset last input of user
+		gotoxy(1, 23);
+		cout << "\t\t\t\t      "<< char(186) ;Color(240);cout << " INVALID Destination, Please Re-Input:  " ;Color(241);cout << char(186) << endl;
+		gotoxy(77, 23);
+		getline(cin, destination);
+	}
+
+	switch (destination[0]) { 	//switch case to determine the price depending on destination picked by the user
+		case 'a': case 'A':
+			receipt_destination = "Batanes"; 	//receipt_destination is a string to refer to later for the receipt
+			ticketPrice=8650;			//sets the ticket price for the calculations
+			break;
+		case 'b': case 'B':
+			receipt_destination = "Bacolod";
+			ticketPrice=4543;
+			break;
+		case 'c': case 'C':
+			receipt_destination = "Palawan";
+			ticketPrice=5882;
+			break;
+		case 'd': case 'D':
+			receipt_destination = "Davao";
+			ticketPrice=4096;
+			break;
 	}
 	system("cls");
 }
