@@ -1,4 +1,4 @@
-// Jiju Airlines Reservation v.0.0.03
+// Jiju Airlines Reservation v.0.0.04
 
 #include <iostream> 	//standard input/output streams
 #include <iomanip> 	//setw
@@ -8,6 +8,7 @@
 #include <sstream> 	//Stringstream
 #include <string>
 #pragma comment(lib, "User32.lib")
+#pragma warning(disable: 4996)
 
 using namespace std;
 
@@ -31,6 +32,16 @@ void ShowConsoleCursor(bool showCursor) //function to enable or disable cursor
 	GetConsoleCursorInfo(out, &cursorInfo); //get current status of cursor
 	cursorInfo.bVisible = showCursor; // set the cursor visibility
 	SetConsoleCursorInfo(out, &cursorInfo); 
+}
+
+const std::string currentTime()
+{
+	time_t now = time(0);
+	struct tm tstruct;
+	char buf[80];
+	tstruct = *localtime(&now);
+	strftime(buf, sizeof(buf), "%H:%M:%S", &tstruct);
+	return buf;
 }
 
 bool alpha(string name) { //function to check a string if it contains characters other than alphanumerics
@@ -69,12 +80,29 @@ bool input_validation(string input)
     return valid_pass;
 }
 
+// Loading Screen Layout
+void loading() {
+	cout << "\n\n\n\n\n\t\t\t\t\t\xfe JIJU Airlines Reservations is Loading \xfe\n\n";
+	char a = 177, b = 219;
+	cout << "\t\t\t\t\t\t";
+	for (int i = 0; i <= 22; i++)
+		cout << a;
+	cout << "\r";
+	cout << "\t\t\t\t\t\t";
+	for (int i = 0; i <= 22; i++)
+	{
+		cout << b;
+		for (int j = 0; j <= 3e7; j++);
+	}
+}
+
 int main() {
-	string receipt_flighttype, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
-	int x; 
-	char yn = 'x', flighttype[1000];
+	string date, destination, receipt_destination, receipt_flightType, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
+	int x, ticketPrice;
+	char yn = 'x', flightType;
 	bool running = true;
 
+	// Input: Welcome Screen [Y/N]
 	system("color f1"); //set the main color of text and backround of program
 	cout << logo;
 	cout << "\n\n\n\t\t\t\t" << char(201);      for (int i = 0; i < 51; i++) { cout << char(205); }      cout << char(187) << endl;
@@ -92,6 +120,7 @@ int main() {
 	yn = 'Y';
 	gotoxy(54, 14);
 
+	// Process: Reservation for L/R and Return Input
 	system("pause>nul");
 	while (running) { //run a loop with a bool as a condition
 
@@ -123,60 +152,54 @@ int main() {
 			}
 		}
 	}
+
+	// Output: Loading Screen
 	cout << logo;
 	//do loading berfore program starts
-	cout<<"\n\n\n\n\n\t\t\t\t\t\xfe JIJU Airlines Reservations is Loading \xfe\n\n";
-	char a=177, b=219;
-	cout<<"\t\t\t\t\t\t";
-	for (int i=0;i<=22;i++)
-	cout<<a;
-	cout<<"\r";
-	cout<<"\t\t\t\t\t\t";
-	for (int i=0;i<=22;i++)
-	{
-		cout<<b;
-		for (int j=0;j<=3e7;j++);
-	}
+	loading();
 	system("cls");
 
+	// Input: Press any Key to Proceed
 	cout << logo;
 	cout << "\n\n\t\t\t ";
-	cout << char(201);      for(int i=0; i<66; i++){cout << char(205);}      cout << char(187) << endl;
-	cout <<"\t\t\t "<< char(186) << setw(67) << char(186) << endl;
-	cout <<"\t\t\t "<< char(186) << setw(67) << char(186) << endl;
-	cout <<"\t\t\t "<< char(186) ;Color(240);cout << "                     Press Any Key to Proceed  ";Color(241);cout <<setw(20) << char(186) << endl;
-	cout <<"\t\t\t "<< char(186) << setw(67) << char(186) << endl;
-	cout <<"\t\t\t "<< char(186) << setw(67) << char(186) << endl;
-	cout <<"\t\t\t "<< char(200);      for(int i=0; i<66; i++){cout << char(205);}      cout << char(188) << endl;
+	cout << char(201);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(187) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186); Color(240); cout << "                     Press Any Key to Proceed  "; Color(241); cout << setw(20) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
 	system("pause>nul");
 	system("cls");
 	ShowConsoleCursor(true); //make cursor visible
 
+	// Input: Type of Reservation [One-Way or Round-Trip]
 	cout << logo;
-	cout << "\n\n\n\n\t\t\t  "<< char(201);  for(int i=0; i<63; i++){cout << char(205);}  cout << char(187)<<endl;
-	cout << "\t\t\t  "<< char(186) << "                                                               " << char(186) << endl;
-	cout << "\t\t\t  "<< char(186) ;Color(240);cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     " ;Color(241);cout << char(186) << endl;
-	cout << "\t\t\t  "<< char(186) << "                                                               " << char(186) << endl;
-	cout << "\t\t\t  "<< char(204);  for(int i=0; i<31; i++){cout << char(205);}  cout << char(203);  for(int i=0; i<31; i++){cout << char(205);}  cout << char(185) << endl;
-	cout << "\t\t\t  "<< char(186) << "\t\t\t          " << char(186) << "\t\t\t          " << char(186) << endl;
-	cout << "\t\t\t  "<< char(186) ;Color(240);cout << "          (1) One-Way          " ;Color(241);cout << char(186) ;Color(240);cout << "         (2)Round Trip         " ;Color(241);cout << char(186) << endl;
-	cout << "\t\t\t  "<< char(186) << "\t\t\t          " << char(186) << "\t\t\t          " << char(186) << endl;
-	cout << "\t\t\t  "<< char(200);  for(int i=0; i<31; i++){cout << char(205);}  cout << char(202);  for(int i=0; i<31; i++){cout << char(205);}  cout << char(188) << endl;
-	gotoxy (1, 12);
-	cout << "\t\t\t  "<< char(186) ;Color(240);cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     " ;Color(241);cout << char(186) << endl;
-	gotoxy (86, 12);
-    	cin >> flightType;
+	cout << "\n\n\n\n\t\t\t  " << char(201);  for (int i = 0; i < 63; i++) { cout << char(205); }  cout << char(187) << endl;
+	cout << "\t\t\t  " << char(186) << "                                                               " << char(186) << endl;
+	cout << "\t\t\t  " << char(186); Color(240); cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t  " << char(186) << "                                                               " << char(186) << endl;
+	cout << "\t\t\t  " << char(204);  for (int i = 0; i < 31; i++) { cout << char(205); }  cout << char(203);  for (int i = 0; i < 31; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t\t  " << char(186) << "\t\t\t          " << char(186) << "\t\t\t          " << char(186) << endl;
+	cout << "\t\t\t  " << char(186); Color(240); cout << "          (1) One-Way          "; Color(241); cout << char(186); Color(240); cout << "         (2)Round Trip         "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t  " << char(186) << "\t\t\t          " << char(186) << "\t\t\t          " << char(186) << endl;
+	cout << "\t\t\t  " << char(200);  for (int i = 0; i < 31; i++) { cout << char(205); }  cout << char(202);  for (int i = 0; i < 31; i++) { cout << char(205); }  cout << char(188) << endl;
+	gotoxy(1, 12);
+	cout << "\t\t\t  " << char(186); Color(240); cout << "     WHAT TYPE OF RESERVATION WOULD YOU LIKE TO MAKE(1-2):     "; Color(241); cout << char(186) << endl;
+	gotoxy(86, 12);
+	cin >> flightType;
 
-    	while ((flightType != 2 && flightType != 1) || cin.fail()){ //Input Validation
+	// Process: Type of Reservation [Input Validation]
+	while ((flightType != 2 && flightType != 1) || cin.fail()) {
 		ignoreLine();
 		gotoxy(1, 12);
-		cout << "\t\t\t  "<< char(186) ;Color(240);cout << "   INVALID INPUT, PLEASE RE-ENTER TYPE OF RESERVATION (1-2):   " ;Color(241);cout << char(186) << endl;
+		cout << "\t\t\t  " << char(186); Color(240); cout << "   INVALID INPUT, PLEASE RE-ENTER TYPE OF RESERVATION (1-2):   "; Color(241); cout << char(186) << endl;
 		gotoxy(87, 12);
 		flightType = 0;
 		cin >> flightType;
 	}
 
-	if (flightType == 1){ //Set string to indicate in reciept later on
+	if (flightType == 1) { //Set string to indicate in reciept later on
 		receipt_flightType = "One-Way";
 	}
 	else {
@@ -184,6 +207,7 @@ int main() {
 	}
 	system("cls");
 
+	// Input: Destination Selection
 	cout << logo;
 	//Ask the user where will be the desired location of their booked flight, then prints all of available trip destinations
 	cout << "\n\n\n\n\t\t\t\t      " << char(201);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(187) << endl;
@@ -204,31 +228,32 @@ int main() {
 	gotoxy(77, 23);
 	getline(cin, destination); 	//Input of user, used getline because of string properties
 
-	while ((destination[0] > 'd'||destination[0] < 'a')&&(destination[0]>'D'||destination[0]<'A')||(destination.length() != 1)){ //input validation if it only contains the letters a-i or it exceeds one character
+	// Process: Destination Selection [Input Validation]
+	while ((destination[0] > 'd' || destination[0] < 'a') && (destination[0] > 'D' || destination[0] < 'A') || (destination.length() != 1)) { //input validation if it only contains the letters A-D or it exceeds one character
 		destination = ""; 	//Reset last input of user
 		gotoxy(1, 23);
-		cout << "\t\t\t\t      "<< char(186) ;Color(240);cout << " INVALID Destination, Please Re-Input:  " ;Color(241);cout << char(186) << endl;
+		cout << "\t\t\t\t      " << char(186); Color(240); cout << " INVALID Destination, Please Re-Input:  "; Color(241); cout << char(186) << endl;
 		gotoxy(77, 23);
 		getline(cin, destination);
 	}
 
+	// Process: Destination Selection [Ticket Pricing]
 	switch (destination[0]) { 	//switch case to determine the price depending on destination picked by the user
-		case 'a': case 'A':
-			receipt_destination = "Batanes"; 	//receipt_destination is a string to refer to later for the receipt
-			ticketPrice=8650;			//sets the ticket price for the calculations
-			break;
-		case 'b': case 'B':
-			receipt_destination = "Bacolod";
-			ticketPrice=4543;
-			break;
-		case 'c': case 'C':
-			receipt_destination = "Palawan";
-			ticketPrice=5882;
-			break;
-		case 'd': case 'D':
-			receipt_destination = "Davao";
-			ticketPrice=4096;
-			break;
+	case 'a': case 'A':
+		receipt_destination = "Batanes"; 	//receipt_destination is a string to refer to later for the receipt
+		ticketPrice = 8650;			//sets the ticket price for the calculations
+		break;
+	case 'b': case 'B':
+		receipt_destination = "Bacolod";
+		ticketPrice = 4543;
+		break;
+	case 'c': case 'C':
+		receipt_destination = "Palawan";
+		ticketPrice = 5882;
+		break;
+	case 'd': case 'D':
+		receipt_destination = "Davao";
+		ticketPrice = 4096;
+		break;
 	}
-	system("cls");
 }
