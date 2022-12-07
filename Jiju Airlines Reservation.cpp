@@ -96,12 +96,26 @@ void loading() {
 	}
 }
 
+void any_keypress() {
+	cout << char(201);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(187) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186); Color(240); cout << "                     Press Any Key to Proceed  "; Color(241); cout << setw(20) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
+	system("pause>nul");
+	system("cls");
+	
+}
+
 int main() {
-	string date ="", receipt_flightType, destination, receipt_destination, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
+	string date = "", year, receipt_flightType, destination, receipt_destination, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
 	int x, flightType;
-	double ticketPrice; 
+	double ticketPrice;
 	char yn = 'x';
-	bool running = true;
+	bool is_num_bool = 0, running = true;
+	time_t t = time(0);
 
 	// Input: Welcome Screen [Y/N]
 	system("color f1"); //set the main color of text and backround of program
@@ -163,15 +177,7 @@ int main() {
 	// Input: Press any Key to Proceed
 	cout << logo;
 	cout << "\n\n\t\t\t ";
-	cout << char(201);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(187) << endl;
-	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
-	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
-	cout << "\t\t\t " << char(186); Color(240); cout << "                     Press Any Key to Proceed  "; Color(241); cout << setw(20) << char(186) << endl;
-	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
-	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
-	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
-	system("pause>nul");
-	system("cls");
+	any_keypress();
 	ShowConsoleCursor(true); //make cursor visible
 
 	// Input: Type of Reservation [One-Way or Round-Trip]
@@ -259,9 +265,10 @@ int main() {
 		break;
 	}
 
-	// Menu: Date Shedule Input
+	// Input: Date Schedule 
 	system("cls");
 	cout << logo;
+	tm* now = localtime(&t); //get current time or date
 	// This will print out and lets the user input their schedule of flight
 	cout << "\n\n\n\t\t      " << char(201);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(187) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << "       When would you like your reservation flight to be scheduled?       "; Color(241); cout << char(186) << endl;
@@ -279,5 +286,70 @@ int main() {
 	gotoxy(58, 15);
 	getline(cin >> ws, date); //input of year of schedule
 	//loop to validate whether input string has any other characters other than numeric
-	input_validation();
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+	//pause program so user can review or check the booking summary
+	cout << "\n\n\n\n\t\t\t ";
+	any_keypress();
+
+	// Output: Book Again
+	cout << logo;
+	// Asks again if user wants to book again
+	cout << "\n\n\n\t\t\t\t" << char(201);      for (int i = 0; i < 51; i++) { cout << char(205); }      cout << char(187) << endl;
+	cout << "\t\t\t\t" << char(186); Color(240); cout << "                                                   "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t" << char(186); Color(240); cout << "          Thank You for Booking with Merc!         "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t" << char(186); Color(240); cout << "                                                   "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t" << char(186); Color(240); cout << "           Would You Like to Book Again?           "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t" << char(186) << "                   [Y]/[N]:                        " << char(186) << endl;
+	cout << "\t\t\t\t" << char(186) << "                                                   " << char(186) << endl;
+	cout << "\t\t\t\t" << char(200);      for (int i = 0; i < 51; i++) { cout << char(205); }      cout << char(188) << endl;
+	gotoxy(61, 14);
+	gotoxy(1, 14);
+	ShowConsoleCursor(false);
+	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
+	yn = 'Y';
+	gotoxy(54, 14);
+	running = true;
+	system("pause>nul");
+	while (running) {
+
+		if (GetAsyncKeyState(VK_RIGHT)) {
+			gotoxy(1, 14);
+			cout << "\t\t\t\t" << char(186); Color(240); cout << "                  YES"; Color(241); cout << "      >NO" << "                     " << char(186) << endl;
+			yn = 'N';
+			gotoxy(63, 14);
+			running = true;
+		}
+		if (GetAsyncKeyState(VK_LEFT)) {
+			gotoxy(1, 14);
+			cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
+			yn = 'Y';
+			gotoxy(54, 14);
+			running = true;
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+			switch (yn) {
+			case 'y': case 'Y': //if input is YES run the program again
+				system("cls");
+				running = false;
+				main();
+				break;
+			case 'n': case 'N': // if NO stop the program
+				system("cls");
+				cout << logo;
+				cout << "\n\n\n\t\t\t\t\t      Thank You! And Goodbye!";
+				return 0;
+			}
+		}
+	}
 }
