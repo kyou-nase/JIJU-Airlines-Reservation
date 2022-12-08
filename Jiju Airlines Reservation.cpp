@@ -456,6 +456,7 @@ int main() {
 		}
 	} while (!passedValid);
 
+	/*
 	system("cls");
 	cout << logo;
 	//prints all of available trip time destinations
@@ -577,8 +578,9 @@ int main() {
 		}
 	} while (!passedValid);
 
+	*/
 
-	/*
+	// STILL IN DEVELOPMENT
 	system("cls");
 	cout << logo;
 	// asks user how many passenger reservation
@@ -598,17 +600,22 @@ int main() {
 		if (!(inputValidation_passed(num_of_passengers)))
 		{
 			gotoxy(1, 11);
-			cout << "\t\t      " << char(186); Color(241); cout << setw(35) << "Invalid Input: "; Color(241); cout << setw(40) << char(186) << endl;
-			gotoxy(58, 15);
+			cout << "\t\t\t " << char(186); Color(241); cout << setw(35) << "                           Please Retry"; Color(241); cout << setw(28) << char(186) << endl;
+			gotoxy(1, 12);
+			cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+			gotoxy(1, 13);
+			cout << "\t\t\t " << char(186); Color(240); cout << " And Enter an Approriate Number of Passenger Reservation(1-10):   "; Color(241); cout << char(186) << endl;
+			gotoxy(90, 13);
 			num_of_passengers = "";
 			getline(cin >> ws, num_of_passengers);
+			passedValid = 0;
 		}
-	} while (!(inputValidation_passed(num_of_passengers)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)));
-	*/
-
-
-
-
+		else {
+			passedValid = 1;
+			break;
+		}
+	}
+	while (!passedValid);
 
 
 
@@ -634,7 +641,7 @@ int main() {
 	/*
 	gotoxy(1, 17);
 	x = 20;
-	if (type[0] == '2') { //display return date if two-way flight
+	if (flightType == '2') { //display return date if two-way flight
 		cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 		cout << "\t\t\t" << char(186); Color(240); cout << "     Return Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 		gotoxy(78, 18);
@@ -642,6 +649,7 @@ int main() {
 		gotoxy(1, 19);
 		x += 2;
 	}
+
 	cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 	cout << "\t\t\t" << char(186) << "                           \xfe PASSENGERS \xfe                          " << char(186) << endl;
 	while (ctr1 != pssngr) { //prints out each passengers details and computation for their corresponding passengers fee
@@ -655,24 +663,7 @@ int main() {
 		gotoxy(79, x);
 		Color(240); cout << "P" << ticketPrice; Color(241); cout << endl;
 		x++;
-		if (young[index3] == 1) { //prints if passenger is children
-			cout << "\t\t\t" << char(186); Color(240); cout << "     (A Children Discount of 2% Deducted)"; Color(241); cout << setw(27) << char(186) << endl;
-			x++;
-		}
-		if (senior[index3] == 1) { //prints if passenger is senior
-			cout << "\t\t\t" << char(186); Color(240); cout << "     (A Seniors Discount of 20% Deducted)"; Color(241); cout << setw(27) << char(186) << endl;
-			x++;
-		}
-		if (group == 1) { //prints if passenger reservations is more than 5
-			cout << "\t\t\t" << char(186); Color(240); cout << "     (A Group Reservation Discount of 5% Deducted)"; Color(241); cout << setw(18) << char(186) << endl;
-			x++;
-		}
-		if (insurance1[0] == 'y' || insurance1[0] == 'Y') { //prints if passenger availed insurance
-			cout << "\t\t\t" << char(186); Color(240); cout << "     Insurance Fee"; Color(241); cout << setw(50) << char(186) << endl;
-			gotoxy(79, x);
-			Color(240); cout << "P" << insurance[index1]; Color(241); cout << endl;
-			x++;
-		}
+
 		if (BaggageFee[index1] != 0) { //prints if passenger has excess baggage
 			cout << "\t\t\t" << char(186); Color(240); cout << "     Excess Baggage Fee"; Color(241); cout << setw(45) << char(186) << endl;
 			gotoxy(79, x);
