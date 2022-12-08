@@ -34,6 +34,50 @@ void ShowConsoleCursor(bool showCursor) //function to enable or disable cursor
 	SetConsoleCursorInfo(out, &cursorInfo); 
 }
 
+void arrow_keys() {
+	char yn = 'x';
+	string logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
+	bool running = true;
+
+	gotoxy(50, 14);
+	gotoxy(1, 14);
+	ShowConsoleCursor(false); //make cursor invisible
+	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
+	yn = 'Y';
+	gotoxy(54, 14);
+	system("pause>nul");
+	while (running) { //run a loop with a bool as a condition
+
+		if (GetAsyncKeyState(VK_RIGHT)) { //detect if left arrow key is pressed
+			gotoxy(1, 14);
+			cout << "\t\t\t\t" << char(186); Color(240); cout << "                  YES"; Color(241); cout << "      >NO" << "                     " << char(186) << endl; //moves arrow and highltght NO
+			yn = 'N';
+			gotoxy(63, 14);
+		}
+		if (GetAsyncKeyState(VK_LEFT)) { //detect if right arrow key is pressed
+			gotoxy(1, 14);
+			cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl; //moves arrow and highltght YES
+			yn = 'Y';
+			gotoxy(54, 14);
+		}
+		if (GetAsyncKeyState(VK_RETURN)) { //detect if enter key is pressed
+			switch (yn) { //switch case of decision of user
+			case 'y': case 'Y':
+				system("cls");
+				running = false; //sets bool value to false to stop loop
+				gotoxy(1, 1);
+				break;
+			case 'n': case 'N': // ends program if NO isthe choice
+				system("cls");
+				cout << logo;
+				cout << "\n\n\n\t\t\t\t\t      Thank You! And Goodbye!";
+				exit;
+				break;
+			}
+		}
+	}
+}
+
 const std::string currentTime()
 {
 	time_t now = time(0);
@@ -80,49 +124,28 @@ bool inputValidation_passed(string input)
     return valid_pass;
 }
 
-void arrow_keys() {
-	char yn = 'x';
-	string logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba     \xdb   \xdb \xdb\xdf\xdf\xdf \xdb\xdf\xdf\xdc \xdb\xdf\xdf\xdb      \xba\n   \t\t\t\t\t  \xba     \xdb\xdb \xdb\xdb \xdb\xfe\xfe  \xdb\xdc\xdc\xdf \xdb\t  \xba\n   \t\t\t\t\t  \xba     \xdb \xdb \xdb \xdb\xdc\xdc\xdc \xdb  \xdb \xdb\xdc\xdc\xdb      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
-	bool running = true;
-
-	gotoxy(50, 14);
-	gotoxy(1, 14);
-	ShowConsoleCursor(false); //make cursor invisible
-	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
-	yn = 'Y';
-	gotoxy(54, 14);
-	system("pause>nul");
-	while (running) { //run a loop with a bool as a condition
-
-		if (GetAsyncKeyState(VK_RIGHT)) { //detect if left arrow key is pressed
-			gotoxy(1, 14);
-			cout << "\t\t\t\t" << char(186); Color(240); cout << "                  YES"; Color(241); cout << "      >NO" << "                     " << char(186) << endl; //moves arrow and highltght NO
-			yn = 'N';
-			gotoxy(63, 14);
-		}
-		if (GetAsyncKeyState(VK_LEFT)) { //detect if right arrow key is pressed
-			gotoxy(1, 14);
-			cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << ">YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl; //moves arrow and highltght YES
-			yn = 'Y';
-			gotoxy(54, 14);
-		}
-		if (GetAsyncKeyState(VK_RETURN)) { //detect if enter key is pressed
-			switch (yn) { //switch case of decision of user
-			case 'y': case 'Y':
-				system("cls");
-				running = false; //sets bool value to false to stop loop
-				gotoxy(1, 1);
-				break;
-			case 'n': case 'N': // ends program if NO isthe choice
-				system("cls");
-				cout << logo;
-				cout << "\n\n\n\t\t\t\t\t      Thank You! And Goodbye!";
-				exit;
-				break;
-			}
-		}
-	}
+void dayPrompt() //function to print prompt if the day input is invalid
+{
+	gotoxy(1, 19);
+	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Invalid Day: "; Color(241); cout << setw(40) << char(186) << endl;
+	gotoxy(58, 19);
 }
+
+void monthPrompt()
+{
+	gotoxy(1, 17);
+	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Invalid Month: "; Color(241); cout << setw(40) << char(186) << endl;
+	gotoxy(58, 17);
+}
+
+void schedPrompt() //function to print prompt if the month input is invalid
+{
+	gotoxy(1, 41);
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << " INVALID Schedule, Please Re-Input:     "; Color(241); cout << char(186) << endl;
+	gotoxy(75, 42);
+}
+
+
 // Loading Screen Layout
 void loading() {
 	cout << "\n\n\n\n\n\t\t\t\t\t\xfe JIJU Airlines Reservations is Loading \xfe\n\n";
@@ -153,22 +176,24 @@ void any_keypress() {
 }
 
 int main() {
-	string dateInput, receipt_flightType, destination, receipt_destination, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
-	struct	//Structure for seperate date inputs
+	string schedTime, num_of_passengers, dateInput, receipt_flightType, destination, receipt_destination, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
+	struct date	//Structure for seperate date inputs
 	{
-		int year, month, day;
+		int year, month, day, hour;
 	} date;
+	struct receipt	//Structure for each string to display in the receipt
+	{
+		string flightType, destination, time;
+	} receipt;
 
 	int x, flightType;
 	double ticketPrice;
 	char yn = 'x';
-	bool running = true;
-
+	bool running = true, passedValid = true;
 	stringstream convertString(dateInput);
 
 	time_t timeNow = time(0); 				//get current time from local system
 	tm* localTime = localtime(&timeNow);
-
 
 	// Input: Welcome Screen [Y/N]
 	system("color f1"); //set the main color of text and backround of program
@@ -181,15 +206,8 @@ int main() {
 	cout << "\t\t\t\t" << char(186); Color(240); cout << "                  YES       NO                     "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t" << char(186); Color(240); cout << "                                                   "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t" << char(200);      for (int i = 0; i < 51; i++) { cout << char(205); }      cout << char(188) << endl;
-	gotoxy(50, 14);
-	gotoxy(1, 14);
-	ShowConsoleCursor(false); //make cursor invisible
-	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << "\x10YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
-	yn = 'Y';
-	gotoxy(54, 14);
 
 	// Process: Reservation for L/R and Return Input
-	system("pause>nul");
 	arrow_keys();
 
 	// Output: Loading Screen
@@ -310,9 +328,283 @@ int main() {
 	gotoxy(58, 15);
 	getline(cin >> ws, dateInput); //input of year of schedule
 	//loop to validate whether input string has any other characters other than numeric
+	do
+	{
+		stringstream convertString(dateInput);
+		convertString >> date.year;
+		if (!(inputValidation_passed(dateInput)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)))
+		{
+			gotoxy(1, 15);
+			cout << "\t\t      " << char(186); Color(241); cout << setw(35) << "Invalid Year: "; Color(241); cout << setw(40) << char(186) << endl;
+			gotoxy(58, 15);
+			dateInput = "";
+			getline(cin >> ws, dateInput);
+		}
+	} while (!(inputValidation_passed(dateInput)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)));
 
-	
+	gotoxy(44, 15);
+	cout << "        Year: ";
+	gotoxy(58, 17);
+	dateInput = "";
+	getline(cin >> ws, dateInput); //input of month of date schedule
 
+	do	//loop to validate input
+	{
+		stringstream convertString(dateInput); //convert input to int data type
+		convertString >> date.month;
+
+		if (date.year == (1900 + localTime->tm_year)) //check if the year selected is for this year
+		{
+			// Check whether input did not pass input validation or value is not the expected month
+			if (!(inputValidation_passed(dateInput)) || date.month < (localTime->tm_mon + 1) || date.month > 12)
+			{
+				monthPrompt();
+				dateInput = "";
+				getline(cin >> ws, dateInput);
+				passedValid = false;
+			}
+			else
+			{
+				passedValid = true;
+				break;
+			}
+		}
+		else
+		{
+			if (!(inputValidation_passed(dateInput)) || date.month < 1 || date.month > 12)
+			{
+				monthPrompt();
+				dateInput = "";
+				getline(cin >> ws, dateInput);
+				passedValid = false;
+			}
+			else
+			{
+				passedValid = true;
+				break;
+			}
+		}
+		ignoreLine();
+	} while (!passedValid);
+
+	gotoxy(43, 17);
+	cout << "        Month: ";
+	gotoxy(58, 19);
+	dateInput = "";
+	getline(cin >> ws, dateInput); //input of day of date schedule
+
+	do
+	{
+		stringstream convertString(dateInput); //convert input to int data type
+		convertString >> date.day;
+
+		if (date.month == (localTime->tm_mon + 1) && date.year == (localTime->tm_year + 1900))
+		{ //gets the value of month and year and whether it has the same date as today
+			if (date.day < (localTime->tm_mday)) { //day can't be any previous day
+				gotoxy(1, 19);
+				cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Invalid Day: "; Color(241); cout << setw(40) << char(186) << endl;
+				gotoxy(58, 19);
+				dateInput = "";
+				getline(cin >> ws, dateInput);
+				passedValid = 0;
+			}
+			else {
+				passedValid = 1;
+				break;
+			}
+		}
+		else if (date.month > (localTime->tm_mon + 1))
+		{
+			if (date.day < 1)
+			{ // checks if input has any negative value
+				dayPrompt();
+				dateInput = "";
+				getline(cin >> ws, dateInput);
+				passedValid = 0;
+			}
+			else
+			{
+				passedValid = 1;
+				break;
+			}
+		}
+
+		switch (date.month) {		//check first what month is the date
+		case 1: case 3: case 5: case 8: case 10: case 12: //jan, mar, may, july, aug, oct, dec
+			if (date.day > 31) {	//day did not correspond to the max day of the month
+				dayPrompt();
+				getline(cin >> ws, dateInput);
+				passedValid = 0;
+			}
+			break;
+		case 2: //feb
+			if (date.day > 28) {	//day did not correspond to the max day of the month
+				dayPrompt();
+				getline(cin >> ws, dateInput);
+				passedValid = 0;
+
+			}
+			break;
+		case 4: case 6: case 7: case 9: case 11: //april, june, sept, nov
+			if (date.day > 30) {	//day did not correspond to the max day of the month
+				dayPrompt();
+				getline(cin >> ws, dateInput);
+				passedValid = 0;
+
+			}
+			break;
+		}
+	} while (!passedValid);
+
+	system("cls");
+	cout << logo;
+	//prints all of available trip time destinations
+	cout << "\n\n\n\n\t\t\t\t      " << char(201);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(187) << endl;
+	cout << "\t\t\t\t      " << char(186) << "            \xfe ONWARD FLIGHT \xfe           " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0 FLIGHT SCHEDULES \xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0" << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (A) \xb3 12:00am              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (B) \xb3 2:00am               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (C) \xb3 4:00am               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (D) \xb3 6:00am               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (E) \xb3 8:00am               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (F) \xb3 10:00am              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (G) \xb3 12:00pm              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (H) \xb3 2:00pm               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (I) \xb3 4:00pm               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (J) \xb3 6:00pm               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (K) \xb3 8:00pm               "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "             (L) \xb3 10:00pm              "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "      Please Refer from the Above       "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186); Color(240); cout << "    And Enter Desired Time (A - L):     "; Color(241); cout << char(186) << endl;
+	cout << "\t\t\t\t      " << char(200);      for (int i = 0; i < 40; i++) { cout << char(205); }      cout << char(188) << endl;
+	gotoxy(75, 41);
+	ignoreLine();
+	getline(cin >> ws, schedTime);
+
+	do {
+		passedValid = true; //Reset indicator if it passed validation
+
+		while ((schedTime[0] > 'l' || schedTime[0] < 'a') && (schedTime[0] > 'L' || schedTime[0] < 'A') || (schedTime.length() != 1)) { //input validation if it only contains the letters A-L or it exceeds one character
+			schedTime = "";
+			schedPrompt();
+			ignoreLine();
+			getline(cin, schedTime);
+		}
+
+		switch (schedTime[0]) { //switch case to determine time
+		case 'a': case 'A':
+			receipt.time = "12:00am"; //Set string to display in receipt
+			date.hour = 0; // 12am is 0 in 24 hr format
+			break;
+
+		case 'b': case 'B':
+			receipt.time = "2:00am"; //Set string to display in receipt
+			date.hour = 2; // 2am is 2 in 24 hr format
+			break;
+
+		case 'c': case 'C':
+			receipt.time = "4:00am"; //Set string to display in receipt
+			date.hour = 4; // 4am is 4 in 24 hr format
+			break;
+
+		case 'd': case 'D':
+			receipt.time = "6:00am"; //Set string to display in receipt
+			date.hour = 6; // 6am is 6 in 24 hr format
+			break;
+
+		case 'e': case 'E':
+			receipt.time = "8:00am"; //Set string to display in receipt
+			date.hour = 8; // 8am is 8 in 24 hr format
+			break;
+
+		case 'f': case 'F':
+			receipt.time = "10:00am"; //Set string to display in receipt
+			date.hour = 10; // 10am is 10 in 24 hr format
+			break;
+
+		case 'g': case 'G':
+			receipt.time = "12:00pm"; //Set string to display in receipt
+			date.hour = 12; // 12pm is 12 in 12 hr format
+			break;
+
+		case 'h': case 'H':
+			receipt.time = "2:00pm"; //Set string to display in receipt 
+			date.hour = 14; // 2pm is 14 in 24 hr format
+			break;
+
+		case 'i': case 'I':
+			receipt.time = "4:00pm"; //Set string to display in receipt
+			date.hour = 16; // 4pm is 16 in 24 hr format
+			break;
+
+		case 'j': case 'J':
+			receipt.time = "6:00pm"; //Set string to display in receipt
+			date.hour = 18; // 6pm is 18 in 24 hr format
+			break;
+
+		case 'k': case 'K':
+			receipt.time = "8:00pm"; //Set string to display in receipt
+			date.hour = 20; // 8pm is 20 in 24 hr format
+			break;
+
+		case 'l': case 'L':
+			receipt.time = "10:00pm"; //Set string to display in receipt 
+			date.hour = 22; // 10pm is 22 in 24 hr format
+			break;
+		}
+		if (date.year == localTime->tm_year + 1900 && date.month == localTime->tm_mon + 1 && date.day == localTime->tm_mday && date.hour >= (localTime->tm_hour + 1))
+		{
+			passedValid = false;
+			schedTime = "";
+			schedPrompt();
+			ignoreLine();
+			getline(cin, schedTime);
+		}
+	} while (!passedValid);
+
+
+	/*
+	system("cls");
+	cout << logo;
+	// asks user how many passenger reservation
+	cout << "\n\n\n\t\t\t ";
+	cout << char(201);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(187) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186); Color(240); cout << "                Please State How Many Passengers:  "; Color(241); cout << setw(16) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
+	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
+	gotoxy(76, 12);
+	getline(cin >> ws, num_of_passengers); //input
+	do {
+		stringstream convertString(num_of_passengers);
+		convertString >> num_of_passengers;
+		if (!(inputValidation_passed(num_of_passengers)))
+		{
+			gotoxy(1, 11);
+			cout << "\t\t      " << char(186); Color(241); cout << setw(35) << "Invalid Input: "; Color(241); cout << setw(40) << char(186) << endl;
+			gotoxy(58, 15);
+			num_of_passengers = "";
+			getline(cin >> ws, num_of_passengers);
+		}
+	} while (!(inputValidation_passed(num_of_passengers)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)));
+	*/
 
 
 
@@ -332,13 +624,14 @@ int main() {
 	cout << "\t\t\t" << char(186); Color(240); cout << "  \t\t    Manila --------TO--------    "; Color(241); cout << setw(20) << char(186) << endl;
 	gotoxy(70, 13);
 	cout << receipt_destination;
-	/*
-	*gotoxy(1, 14);
+	gotoxy(1, 14);
 	cout << "\t\t\t" << char(186) << "\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0" << char(186) << endl;
 	cout << "\t\t\t" << char(204);      for (int i = 0; i < 67; i++) { cout << char(205); }      cout << char(185) << endl;
 	cout << "\t\t\t" << char(186); Color(240); cout << "  Departure Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 	gotoxy(78, 16);
-	cout << day << "/" << month << "/" << year;
+	cout << date.day << "/" << date.month << "/" << date.year;
+
+	/*
 	gotoxy(1, 17);
 	x = 20;
 	if (type[0] == '2') { //display return date if two-way flight
@@ -396,7 +689,8 @@ int main() {
 		++index3;
 	}
 	*/
-	//pause program so user can review or check the booking summary
+
+	// pause program so user can review or check the booking summary
 	cout << "\n\n\t\t\t ";
 	any_keypress();
 
@@ -411,5 +705,4 @@ int main() {
 	cout << "\t\t\t\t" << char(186); Color(240); cout << "                                                   "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t" << char(200);      for (int i = 0; i < 51; i++) { cout << char(205); }      cout << char(188) << endl;
 	arrow_keys();
-
 }
