@@ -1,4 +1,4 @@
-// Jiju Airlines Reservation v.0.1.2
+// Jiju Airlines Reservation v.0.1.3
 
 #include <iostream> 	//standard input/output streams
 #include <iomanip> 		//setw
@@ -219,7 +219,7 @@ int main() {
 		string surname[10], firstname[10], middle[10];
 	}name;
 
-	int flightType;
+	int flightType, x;
 	double ticketPrice;
 	char yn = 'x';
 	bool running = true, passedValid = true;
@@ -1073,35 +1073,34 @@ int main() {
 	cout << "\t\t\t" << char(186); Color(240); cout << "  Departure Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 	gotoxy(73, 16);
 	cout << date.day << "/" << date.month << "/" << date.year << " " << receipt.time;
-
-	
 	gotoxy(1, 17);
+	x = 20;
 	if (flightType != 1) { // display return date if two-way flight
 		cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 		cout << "\t\t\t" << char(186); Color(240); cout << "     Return Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 		gotoxy(78, 18);
 		Color(240); cout << date.rtDay << "/" << date.rtMonth << "/" << date.rtYear; Color(241);
 		gotoxy(1, 19);
+		x += 2;
 	}
-	/*
+	
 	cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 	cout << "\t\t\t" << char(186) << "                           \xfe PASSENGERS \xfe                          " << char(186) << endl;
-	while (ctr1 != pssngr) { //prints out each passengers details and computation for their corresponding passengers fee
+	while (passenger.index != passenger.count) { //prints out each passengers details and computation for their corresponding passengers fee
 		cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
-		cout << "\t\t\t" << char(186); Color(240); cout << " " << index1 << ". " << surname[index1] << ", " << frstname[index1] << " " << mi[index1]; Color(241);
+		cout << "\t\t\t" << char(186); Color(240); cout << " " << passenger.index << ". " << name.surname[passenger.index] << ", " << name.firstname[passenger.index] << " " << name.middle[passenger.index]; Color(241);
 		gotoxy(92, x);
 		cout << char(186) << endl;
 		cout << "\t\t\t" << char(186); Color(240); cout << "     Trip Fare"; Color(241); cout << setw(54) << char(186) << endl;
 		x++;
-
 		gotoxy(79, x);
 		Color(240); cout << "P" << ticketPrice; Color(241); cout << endl;
 		x++;
-
-		if (BaggageFee[index1] != 0) { //prints if passenger has excess baggage
+		/*
+		if ((passenger.baggage[passenger.index] != 0) { //prints if passenger has excess baggage
 			cout << "\t\t\t" << char(186); Color(240); cout << "     Excess Baggage Fee"; Color(241); cout << setw(45) << char(186) << endl;
 			gotoxy(79, x);
-			Color(240); cout << "P" << BaggageFee[index1]; Color(241); cout << endl;
+			Color(240); cout << "P" << (passenger.baggage[passenger.index]; Color(241); cout << endl;
 			x++;
 		}
 		cout << "\t\t\t" << char(186); Color(240); cout << " Total Passenger's Fee"; Color(241); cout << setw(46) << char(186) << endl; //prints out amount of each total passengers fee
@@ -1112,8 +1111,8 @@ int main() {
 		++index1;
 		++index2;
 		++index3;
+		*/
 	}
-	*/
 
 	// pause program so user can review or check the booking summary
 	cout << "\n\n\t\t\t ";
