@@ -142,7 +142,7 @@ void schedPrompt() //function to print prompt if the month input is invalid
 {
 	gotoxy(1, 41);
 	cout << "\t\t\t\t      " << char(186); Color(240); cout << " INVALID Schedule, Please Re-Input:     "; Color(241); cout << char(186) << endl;
-	gotoxy(75, 42);
+	gotoxy(75, 41);
 }
 
 
@@ -406,10 +406,10 @@ int main() {
 				gotoxy(58, 19);
 				dateInput = "";
 				getline(cin >> ws, dateInput);
-				passedValid = 0;
+				passedValid = false;
 			}
 			else {
-				passedValid = 1;
+				passedValid = true;
 				break;
 			}
 		}
@@ -420,11 +420,11 @@ int main() {
 				dayPrompt();
 				dateInput = "";
 				getline(cin >> ws, dateInput);
-				passedValid = 0;
+				passedValid = false;
 			}
 			else
 			{
-				passedValid = 1;
+				passedValid = true;
 				break;
 			}
 		}
@@ -456,7 +456,6 @@ int main() {
 		}
 	} while (!passedValid);
 
-	/*
 	system("cls");
 	cout << logo;
 	//prints all of available trip time destinations
@@ -494,17 +493,16 @@ int main() {
 	cout << "\t\t\t\t      " << char(186); Color(240); cout << "    And Enter Desired Time (A - L):     "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t      " << char(200);      for (int i = 0; i < 40; i++) { cout << char(205); }      cout << char(188) << endl;
 	gotoxy(75, 41);
-	ignoreLine();
 	getline(cin >> ws, schedTime);
 
 	do {
-		passedValid = true; //Reset indicator if it passed validation
+		passedValid = true; // Reset indicator if it passed validation
 
 		while ((schedTime[0] > 'l' || schedTime[0] < 'a') && (schedTime[0] > 'L' || schedTime[0] < 'A') || (schedTime.length() != 1)) { //input validation if it only contains the letters A-L or it exceeds one character
 			schedTime = "";
 			schedPrompt();
-			ignoreLine();
 			getline(cin, schedTime);
+			passedValid = false;
 		}
 
 		switch (schedTime[0]) { //switch case to determine time
@@ -576,9 +574,11 @@ int main() {
 			ignoreLine();
 			getline(cin, schedTime);
 		}
+		else {
+			passedValid = true;
+		}
 	} while (!passedValid);
 
-	*/
 
 	// STILL IN DEVELOPMENT
 	system("cls");
@@ -593,8 +593,9 @@ int main() {
 	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
 	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
 	gotoxy(76, 12);
-	getline(cin >> ws, num_of_passengers); //input
+	getline(cin >> ws, num_of_passengers); //input of no. of passenger
 	do {
+
 		stringstream convertString(num_of_passengers);
 		convertString >> num_of_passengers;
 		if (!(inputValidation_passed(num_of_passengers)))
@@ -608,10 +609,10 @@ int main() {
 			gotoxy(90, 13);
 			num_of_passengers = "";
 			getline(cin >> ws, num_of_passengers);
-			passedValid = 0;
+			passedValid = false;
 		}
 		else {
-			passedValid = 1;
+			passedValid = true;
 			break;
 		}
 	}
