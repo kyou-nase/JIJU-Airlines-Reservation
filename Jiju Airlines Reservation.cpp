@@ -1,4 +1,4 @@
-// Jiju Airlines Reservation v.0.1.0
+// Jiju Airlines Reservation v.0.1.2
 
 #include <iostream> 	//standard input/output streams
 #include <iomanip> 		//setw
@@ -77,7 +77,7 @@ void arrow_keys() {
 	}
 }
 
-bool alpha(string name) { //function to check a string if it contains characters other than alphanumerics
+bool onlyAlpha(string name) { //function to check a string if it contains characters other than alphanumerics
 	for (int z = 0; z < name.size(); z++) {
 		if (!isalpha(name[z])) { 	//checks if a character of the string is not an alphanumeric
 			if (isspace(name[z])) {		//if it's a space continue
@@ -196,18 +196,30 @@ void any_keypress() {
 }
 
 int main() {
-	string schedTime, numPassngers_input, dateInput, destination, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
-	struct date	//Structure for seperate date inputs
+	string schedTime, numPassngers_input, dateInput, destination, ageInput, baggageInput, logo = "\t\t\t\t\t  \xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb\n\t\t\t\t\t  \xba       \xdf\xdf\xdb \xdf\xdb\xdb\xdf  \xdf\xdf\xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba         \xdb  \xde\xdd     \xdb \xdb  \xdb      \xba\n   \t\t\t\t\t  \xba      \xdf\xdc\xdc\xdf \xdc\xdb\xdb\xdc \xdf\xdc\xdc\xdf \xdf\xdc\xdc\xdf      \xba\n \t\t\t\t\t  \xba A    I    R    L    I    N   E\xba\n\t\t\t\t\t  \xba     R E S E R V A T I O N S   \xba\n\t\t\t\t\t  \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc";
+
+	struct date		//Structure for seperate date inputs
 	{
 		int year, rtYear, month, rtMonth, day, rtDay, hour, rtHour;
 	} date;
+
 	struct receipt	//Structure for each string to display in the receipt
 	{
 		string flightType, rtFlightType, destination, rtDestination, time, rtTime;
 		int space;
 	} receipt;
 
-	int receiptSpace, flightType, passengerCount, passengerNum;
+	struct passnger	//Sturcture of data for passenger details
+	{
+		int count, num, index = 0, age[10], baggage[10];
+	}passenger;
+
+	struct name		//structure containing the passengers name information
+	{
+		string surname[10], firstname[10], middle[10];
+	}name;
+
+	int flightType;
 	double ticketPrice;
 	char yn = 'x';
 	bool running = true, passedValid = true;
@@ -327,7 +339,7 @@ int main() {
 	}
 
 	if (flightType == 2)
-		ticketPrice *= 2;
+		ticketPrice *= 2; //multiply trip fare by two if round-trip flight was chosen
 
 	system("cls");
 	cout << logo;
@@ -437,6 +449,7 @@ int main() {
 				passedValid = 0;
 				continue;
 			}
+
 		}
 
 		switch (date.month) {		//check first what month is the date
@@ -859,9 +872,9 @@ int main() {
 			continue;
 		}
 
-		passengerCount = stoi(numPassngers_input);
+		passenger.count = stoi(numPassngers_input);
 
-		if (passengerCount < 1 || passengerCount > 8)
+		if (passenger.count < 1 || passenger.count > 8)
 		{
 			passengerPrompt();
 			numPassngers_input.clear();
@@ -872,15 +885,15 @@ int main() {
 
 	} while (!passedValid);
 
-	/*
-	system("cls");
-	//loop that will ask each pasengers their information
-	while (ctr1 != numPassngers_input) {
+
+	do {
+		passenger.index++;
+		system("cls");
 		cout << logo;
 		cout << "\n\n\n\n\t\t      " << char(201);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(187) << endl;
 		cout << "\t\t      " << char(186) << " \xfe Please Enter the Names and Corresponding Age of the Passengers Below \xfe " << char(186) << endl;
 		cout << "\t\t      " << char(204);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(185) << endl;
-		cout << "\t\t      " << char(186) << setw(40) << " \xfe PASSENGER " << index1 << " \xfe " << setw(31) << char(186) << endl;
+		cout << "\t\t      " << char(186) << setw(40) << " \xfe PASSENGER " << passenger.index << " \xfe " << setw(31) << char(186) << endl;
 		cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
 		cout << "\t\t      " << char(186); Color(240); cout << "                    Surname: "; Color(241); cout << setw(46) << char(186) << endl;
 		cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
@@ -893,250 +906,156 @@ int main() {
 		cout << "\t\t      " << char(186); Color(240); cout << "                        Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
 		cout << "\t\t      " << char(200);      for (int i = 0; i < 74; i++) { cout << char(205); }      cout << char(188) << endl;
 		gotoxy(52, 15);
-		getline(cin >> ws, surname[index1]); //input of surname
+		getline(cin >> ws, name.surname[passenger.index]); //input of surname
 
-		while (alpha(surname[index1]) == false) { //uses the alpha function to validate whether the input has any other characters other than alphabet
+		while (!(onlyAlpha(name.surname[passenger.index])))
+		{
 			gotoxy(1, 15);
 			cout << "\t\t      " << char(186); Color(240); cout << "            Invalid Surname: "; Color(241); cout << setw(46) << char(186) << endl;
 			gotoxy(52, 15);
-			getline(cin >> ws, surname[index1]);
-			alpha(surname[index1]);
+			name.surname[passenger.index].clear();
+			getline(cin >> ws, name.surname[passenger.index]);
 		}
+
 		gotoxy(1, 15);
 		cout << "\t\t      " << char(186); Color(240); cout << "                    Surname: "; Color(241);
 		gotoxy(52, 17);
-		getline(cin >> ws, frstname[index1]); //input of firstname
-		while (alpha(frstname[index1]) == false) { //uses the alpha function to validate whether the input has any other characters other than alphabet
+		getline(cin >> ws, name.firstname[passenger.index]);
+
+		while (!(onlyAlpha(name.firstname[passenger.index])))
+		{
 			gotoxy(1, 17);
 			cout << "\t\t      " << char(186); Color(240); cout << "         Invalid First Name: "; Color(241); cout << setw(46) << char(186) << endl;
 			gotoxy(52, 17);
-			getline(cin >> ws, frstname[index1]);
-			alpha(frstname[index1]);
+			name.firstname[passenger.index].clear();
+			getline(cin >> ws, name.firstname[passenger.index]);
 		}
+
 		gotoxy(1, 17);
 		cout << "\t\t      " << char(186); Color(240); cout << "                 First Name: "; Color(241);
 		gotoxy(52, 19);
-		getline(cin, mi[index1]); //input of middle intital
-		while (alpha(mi[index2]) == false) { //uses the alpha function to validate whether the input has any other characters other than alphabet
-			gotoxy(1, 19);
-			cout << "\t\t      " << char(186); Color(240); cout << "     Invalid Middle Initial: "; Color(241); cout << setw(46) << char(186) << endl;
-			gotoxy(52, 19);
-			getline(cin, mi[index2]);
-			alpha(mi[index2]);
+		getline(cin >> ws, name.middle[passenger.index]);
+
+		while (!(onlyAlpha(name.middle[passenger.index])))
+		{
+			gotoxy(1, 17);
+			cout << "\t\t      " << char(186); Color(240); cout << "        Invalid Middle Name: "; Color(241); cout << setw(46) << char(186) << endl;
+			gotoxy(52, 17);
+			name.middle[passenger.index].clear();
+			getline(cin >> ws, name.middle[passenger.index]);
 		}
+
 		gotoxy(1, 19);
-		cout << "\t\t      " << char(186); Color(240); cout << "             Middle Initial: "; Color(240);
+		cout << "\t\t      " << char(186); Color(240); cout << "             Middle Initial: "; Color(241);
 		gotoxy(52, 21);
-		getline(cin >> ws, age_str); //input of age
-		//loop for validation of age whether it contains any other charaters other than numbers
+		getline(cin >> ws, ageInput); //input age per passenger
+
 		do {
-
-
-
 			passedValid = true;
-			if (!(inputValidation_passed(age_str)))
+			if (!inputValidation_passed(ageInput))
 			{
-				yearPrompt();
-				age_str.clear();
-				getline(cin >> ws, dateInput);
+				gotoxy(1, 21);
+				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Age: "; Color(241); cout << setw(46) << char(186) << endl;
+				gotoxy(52, 21);
+				ageInput.clear();
+				getline(cin >> ws, ageInput);
 				passedValid = false;
 				continue;
 			}
 
-			date.rtYear = stoi(dateInput);
-			// check if input is less than or above the expected input
-			if ((date.rtYear < date.year || date.rtYear > date.year + 1))
+			passenger.age[passenger.index] = stoi(ageInput);
+
+			if (passenger.age[passenger.index] < 1 || passenger.age[passenger.index] > 120)
 			{
-				yearPrompt();
-				dateInput.clear();
-				getline(cin >> ws, dateInput);
+				gotoxy(1, 21);
+				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Age: "; Color(241); cout << setw(46) << char(186) << endl;
+				gotoxy(52, 21);
+				ageInput.clear();
+				getline(cin >> ws, ageInput);
+				passedValid = false;
+				continue;
+			}
+
+			bool haveMinors = false, haveAdults = false;
+
+			if (passenger.age[passenger.index] <= 17)
+			{
+				haveMinors = true;
+			}
+			else
+				haveAdults = true;
+
+			if (passenger.index == passenger.count && !haveAdults)
+			{
+				gotoxy(1, 21);
+				cout << "\t\t      " << char(186); Color(240); cout << "Must Have Atleast One Adult: "; Color(241); cout << setw(46) << char(186) << endl;
+				gotoxy(52, 21);
+				ageInput.clear();
+				getline(cin >> ws, ageInput);
 				passedValid = false;
 				continue;
 			}
 		} while (!passedValid);
 
-		if (is_num == age_str.size() && contains_spaces == false)
-		{
-			stringstream str_stream_object(age_str);
-			str_stream_object >> age[index1];
-			if (age[index1] > 120 || age[index1] < 1) {
-				gotoxy(1, 21);
-				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Age: "; Color(241); cout << setw(46) << char(186) << endl;
-				gotoxy(52, 21);
-				getline(cin >> ws, age_str);
-				is_num_bool = 0;
-			}
-			else {
-				is_num_bool = 1;
-			}
+		gotoxy(1, 21);
+		cout << "\t\t      " << char(186); Color(240); cout << "                        Age: "; Color(240);
+		gotoxy(68, 23);
+		getline(cin >> ws, baggageInput);
 
-		}
-		else if (is_num == 0) {
-			gotoxy(1, 21);
-			cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Age: "; Color(241); cout << setw(46) << char(186) << endl;
-			gotoxy(52, 21);
-			getline(cin >> ws, age_str);
-			is_num_bool = 0;
-		}
-
-		is_num = 0;
-		decimal_count = 0;
-		contains_spaces = false;
-		stringstream age_int(age_str);
-		int age;
-		age_int >> age;
-
-		//validation for passengers for minor/s
-		if (age < 18)
-		{
-			hasMinorPassngr = true;
-
-		}
-		else {
-			hasAdultPssngr = true;
-		}
-
-		if (ctr1 == (pssngr - 1) && hasAdultPssngr == false && hasMinorPassngr == true)
-		{
-			gotoxy(1, 21);
-			cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Age: "; Color(241); cout << setw(46) << char(186) << endl;
-			gotoxy(52, 21);
-			getline(cin >> ws, age_str);
-			is_num_bool = 0;
-		}
-		else {
-			is_num_bool = 1;
-		}
-	}while (is_num_bool == 0);
-	gotoxy(1, 21);
-	cout << "\t\t      " << char(186); Color(240); cout << "                        Age: "; Color(240);
-	gotoxy(68, 23);
-
-	getline(cin >> ws, baggage_str); //input of weight of baggage
-	//loop for validation of baggage weight whether it contains any other charaters other than numbers
-	do {
-
-		for (int i = 0; i < baggage_str.size(); i++)
-		{
-			if (isspace(baggage_str[i]))
-				contains_spaces = true;
-		}
-
-		if ((baggage_str[0] == '0' && isdigit(baggage_str[1]))) // can't start from 0
-			is_num = 0;
-		else
-		{
-			for (int i = 0; i < baggage_str.size(); i++)
+		do {
+			passedValid = true;
+			if (!inputValidation_passed(baggageInput))
 			{
-				if (isdigit(baggage_str[i]))
-					is_num++;
-				if (baggage_str[i] == '.')
-					decimal_count++;
-			}
-		}
-
-		if (decimal_count == 1) //decimals 66.7 // 8..9.9.9..9.9
-			is_num = 0;
-
-		if (is_num == baggage_str.size() && contains_spaces == false)
-		{
-			stringstream str_stream_object(baggage_str);
-			str_stream_object >> baggage[index2];
-			if (baggage[index2] > 30 || baggage[index2] < 1) {
 				gotoxy(1, 23);
-				cout << "\t\t      " << char(186); Color(240); cout << "                        Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
+				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
 				gotoxy(68, 23);
-				getline(cin >> ws, baggage_str);
-				is_num_bool = 0;
-			}
-			else {
-				is_num_bool = 1;
-				break;
+				baggageInput.clear();
+				getline(cin >> ws, baggageInput);
+				passedValid = false;
+				continue;
+
 			}
 
-		}
-		else if (is_num == 0) {
-			gotoxy(1, 23);
-			cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
-			gotoxy(68, 23);
-			getline(cin >> ws, baggage_str);
-			is_num_bool = 0;
-		}
-		is_num_bool = 0;
-		is_num = 0;
-		decimal_count = 0;
-		contains_spaces = false;
-	} while (is_num_bool == 0);
-	gotoxy(1, 23);
-	cout << "\t\t      " << char(186); Color(240); cout << "                        Baggage Weight (Kg): "; Color(241); cout << endl;
-	if (selection == "I") { //checks if destination is inter national and maximum baggage is 8kg
-		if (baggage[index2] > 10) {
-			excessBaggage[index2] = (baggage[index2] - 10);
-		}
-		if (plane[0] == '1') { //checks type of plane and assigns price for excess baggage for the corresponding type
-			BaggageFee[index2] = excessBaggage[index2] * 1250;
-		}
-		else if (plane[0] == '2') {
-			BaggageFee[index2] = excessBaggage[index2] * 1450;
-		}
-	}
+			passenger.baggage[passenger.index] = stoi(baggageInput);
 
-	else if (selection == "D") { //domestic flight
-		if (baggage[index2] > 8) {
-			excessBaggage[index2] = (baggage[index2] - 8);
-		}
-		if (plane[0] == '1') {
-			BaggageFee[index2] = excessBaggage[index2] * 1250;
-		}
-		else if (plane[0] == '2') {
-			BaggageFee[index2] = excessBaggage[index2] * 1450;
-		}
-		if (baggage[index1] < 9) {
-			BaggageFee[index1] = 0;
-		}
+			if (passenger.baggage[passenger.index] > 30 || passenger.baggage[passenger.index] < 1)
+			{
+				gotoxy(1, 23);
+				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
+				gotoxy(68, 23);
+				baggageInput.clear();
+				getline(cin >> ws, baggageInput);
+				passedValid = false;
+				continue;
+			}
+		} while (!passedValid);
+
+		gotoxy(1, 23);
+		cout << "\t\t      " << char(186); Color(240); cout << "                        Baggage Weight (Kg): "; Color(241); cout << endl;
+		//STILLL MISSING CALCULATIONS PER PASSENGER
+	} while (passenger.index != passenger.count);
+
+	passenger.index = 0;
+
+
+	// NEW SKILLISSUE, ignore this line (Computation) 
+	/*system("cls");
+	cout << logo;
+	double gross = 0, totalGross, amount, vat, passengerCounter = 0;
+	passengerCount = stoi(numPassngers_input);
+
+	while (passengerCounter != passengerCount) { //addign all passengers fee
+		gross += ticketPrice;
+		totalGross = gross;
+		++passengerCounter;
 	}
-	gotoxy(1, 24);
-	//asks each passengers if he/she would like to avail insurance
-	cout << "\t\t      " << char(204);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(185) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << "           Would you like to Avail Insurance for the Passenger?"; Color(241); cout << setw(12) << char(186) << endl;
-	if (plane[0] == '1') { //different charges depending on type of plane
-		cout << "\t\t      " << char(186); Color(240); cout << "              An Additional Charge of P4500 in Private Class"; Color(241); cout << setw(15) << char(186) << endl;
-	}
-	else if (plane[0] == '2') {
-		cout << "\t\t      " << char(186); Color(240); cout << "              An Additional Charge of P8500 in Business Class"; Color(241); cout << setw(14) << char(186) << endl;
-	}
-	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << "                             <Y> <N>: "; Color(241); cout << setw(37) << char(186) << endl;
-	cout << "\t\t      " << char(200);      for (int i = 0; i < 74; i++) { cout << char(205); }      cout << char(188) << endl;
-	gotoxy(61, 28);
-	cin >> insurance1;
-	while (insurance1[0] != 'Y' && insurance1[0] != 'y' && insurance1[0] != 'N' && insurance1[0] != 'n' || insurance1[1] > 0) { //input validation
-		gotoxy(1, 27);
-		cout << "\t\t      " << char(186); Color(240); cout << "             Invalid Input! Try Again, <Y> = yes, <N> = no: "; Color(241); cout << setw(14) << char(186) << endl;
-		gotoxy(83, 27);
-		cin >> insurance1;
-	}
-	if (insurance1[0] == 'y' || insurance1[0] == 'Y') { //if yes, add insurance
-		if (plane[0] == '1') {
-			insurance[index3] = 4500;
-		}
-		else if (plane[0] == '2') {
-			insurance[index3] = 8500;
-		}
-	}
-	else if (insurance1[0] == 'n' || insurance1[0] == 'N') {
-		insurance[index3] = 0;
-	}
-	index1++;
-	index2++;
-	index3++;
-	ctr1++;
+	vat = totalGross * .12; //computation of vat
+	amount = gross + vat; //total due amount
 	system("cls");
-	}
+	
 	*/
 
-
-	// IGNORE THIS LINE FIRST(WILL BE USED IN THE LAST SECTION)
+	// IGNORE THIS LINE (RECEIPT)
 	//pause program so user can review or check the booking summary
 	system("cls");
 	//prints out booking summary of reservation
@@ -1155,15 +1074,16 @@ int main() {
 	gotoxy(73, 16);
 	cout << date.day << "/" << date.month << "/" << date.year << " " << receipt.time;
 
-	/*
+	
 	gotoxy(1, 17);
-	if (flightType == '2') { //display return date if two-way flight
+	if (flightType != 1) { // display return date if two-way flight
 		cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 		cout << "\t\t\t" << char(186); Color(240); cout << "     Return Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 		gotoxy(78, 18);
 		Color(240); cout << date.rtDay << "/" << date.rtMonth << "/" << date.rtYear; Color(241);
 		gotoxy(1, 19);
 	}
+	/*
 	cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 	cout << "\t\t\t" << char(186) << "                           \xfe PASSENGERS \xfe                          " << char(186) << endl;
 	while (ctr1 != pssngr) { //prints out each passengers details and computation for their corresponding passengers fee
