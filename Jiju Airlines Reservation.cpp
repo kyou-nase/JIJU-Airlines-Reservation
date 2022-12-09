@@ -138,6 +138,13 @@ void monthPrompt()
 	gotoxy(58, 17);
 }
 
+void yearPrompt()    //function to print prompt if the year input is invalid
+{
+	gotoxy(1, 15);
+	cout << "\t\t      " << char(186); Color(241); cout << setw(35) << "Invalid Year: "; Color(241); cout << setw(40) << char(186) << endl;
+	gotoxy(58, 15);
+}
+
 void schedPrompt() //function to print prompt if the month input is invalid
 {
 	gotoxy(1, 41);
@@ -145,6 +152,19 @@ void schedPrompt() //function to print prompt if the month input is invalid
 	gotoxy(75, 41);
 }
 
+//Input date layout
+void screenDateInput()
+{
+	cout << "\t\t      " << char(204);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(185) << endl;
+	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
+	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Year: "; Color(241); cout << setw(40) << char(186) << endl;
+	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
+	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Month: "; Color(241); cout << setw(40) << char(186) << endl;
+	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
+	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Day: "; Color(241); cout << setw(40) << char(186) << endl;
+	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
+	cout << "\t\t      " << char(200);      for (int i = 0; i < 74; i++) { cout << char(205); }      cout << char(188) << endl;
+}
 
 // Loading Screen Layout
 void loading() {
@@ -310,122 +330,111 @@ int main() {
 	// Input: Date Schedule 
 	system("cls");
 	cout << logo;
-	tm* now = localtime(&timeNow); //get current time or date
-	// This will print out and lets the user input their schedule of flight
+	//prints out and input of schedule of flight
 	cout << "\n\n\n\t\t      " << char(201);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(187) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << "       When would you like your reservation flight to be scheduled?       "; Color(241); cout << char(186) << endl;
 	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << "             Kindly indicate the Date of the Year, Month, Day.            "; Color(241); cout << char(186) << endl;
-	cout << "\t\t      " << char(204);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(185) << endl;
-	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Year: "; Color(241); cout << setw(40) << char(186) << endl;
-	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Month: "; Color(241); cout << setw(40) << char(186) << endl;
-	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Day: "; Color(241); cout << setw(40) << char(186) << endl;
-	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(200);      for (int i = 0; i < 74; i++) { cout << char(205); }      cout << char(188) << endl;
+	screenDateInput();
 	gotoxy(58, 15);
 	getline(cin >> ws, dateInput); //input of year of schedule
-	//loop to validate whether input string has any other characters other than numeric
-	do
+
+	do	//loop to validate input
 	{
-		stringstream convertString(dateInput);
-		convertString >> date.year;
-		if (!(inputValidation_passed(dateInput)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)))
+		if (!(inputValidation_passed(dateInput)))
 		{
-			gotoxy(1, 15);
-			cout << "\t\t      " << char(186); Color(241); cout << setw(35) << "Invalid Year: "; Color(241); cout << setw(40) << char(186) << endl;
-			gotoxy(58, 15);
-			dateInput = "";
+			yearPrompt();
+			dateInput.clear();
 			getline(cin >> ws, dateInput);
+			passedValid = false;
+			continue;
 		}
-	} while (!(inputValidation_passed(dateInput)) || (date.year < (1900 + localTime->tm_year)) || (date.year > (1901 + localTime->tm_year)));
+
+		date.year = stoi(dateInput);
+		// Check whether input did not pass input validation or value is not the expected year
+		if ((date.year < (1900 + localTime->tm_year) || date.year >(1901 + localTime->tm_year)))
+		{
+			yearPrompt();
+			dateInput.clear();
+			getline(cin >> ws, dateInput);
+			passedValid = false;
+		}
+		else
+		{
+			passedValid = true;
+			break;
+		}
+
+	} while (!passedValid);
 
 	gotoxy(44, 15);
 	cout << "        Year: ";
 	gotoxy(58, 17);
-	dateInput = "";
+	dateInput.clear();
 	getline(cin >> ws, dateInput); //input of month of date schedule
 
 	do	//loop to validate input
 	{
-		stringstream convertString(dateInput); //convert input to int data type
-		convertString >> date.month;
+		passedValid = true;
+		if (!(inputValidation_passed(dateInput)))
+		{
+			monthPrompt();
+			dateInput.clear();
+			getline(cin >> ws, dateInput);
+			passedValid = false;
+			continue;
+		}
 
-		if (date.year == (1900 + localTime->tm_year)) //check if the year selected is for this year
+		date.month = stoi(dateInput);
+
+		if (date.year == localTime->tm_year + 1900 && (date.month < localTime->tm_mon + 1 || date.month > 12)) //check if the selected year is current year
 		{
-			// Check whether input did not pass input validation or value is not the expected month
-			if (!(inputValidation_passed(dateInput)) || date.month < (localTime->tm_mon + 1) || date.month > 12)
-			{
-				monthPrompt();
-				dateInput = "";
-				getline(cin >> ws, dateInput);
-				passedValid = false;
-			}
-			else
-			{
-				passedValid = true;
-				break;
-			}
+			monthPrompt();
+			dateInput.clear();
+			getline(cin >> ws, dateInput);
+			passedValid = false;
+			continue;
 		}
-		else
+
+		if (date.month < 1 || date.month > 12)
 		{
-			if (!(inputValidation_passed(dateInput)) || date.month < 1 || date.month > 12)
-			{
-				monthPrompt();
-				dateInput = "";
-				getline(cin >> ws, dateInput);
-				passedValid = false;
-			}
-			else
-			{
-				passedValid = true;
-				break;
-			}
+			monthPrompt();
+			dateInput.clear();
+			getline(cin >> ws, dateInput);
+			passedValid = false;
+			continue;
 		}
-		ignoreLine();
 	} while (!passedValid);
 
 	gotoxy(43, 17);
 	cout << "        Month: ";
 	gotoxy(58, 19);
-	dateInput = "";
+	dateInput.clear();
 	getline(cin >> ws, dateInput); //input of day of date schedule
 
 	do
 	{
-		stringstream convertString(dateInput); //convert input to int data type
-		convertString >> date.day;
+		passedValid = true;
+		if (!(inputValidation_passed(dateInput)))
+		{
+			dayPrompt();
+			dateInput = "";
+			getline(cin >> ws, dateInput);
+			passedValid = false;
+			continue;
+		}
+
+		date.day = stoi(dateInput);
 
 		if (date.month == (localTime->tm_mon + 1) && date.year == (localTime->tm_year + 1900))
 		{ //gets the value of month and year and whether it has the same date as today
-			if (date.day < (localTime->tm_mday)) { //day can't be any previous day
-				gotoxy(1, 19);
-				cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Invalid Day: "; Color(241); cout << setw(40) << char(186) << endl;
-				gotoxy(58, 19);
-				dateInput = "";
-				getline(cin >> ws, dateInput);
-				passedValid = false;
-			}
-			else {
-				passedValid = true;
-				break;
-			}
-		}
-		else if (date.month > (localTime->tm_mon + 1))
-		{
-			if (date.day < 1)
-			{ // checks if input has any negative value
+			if (date.day < (localTime->tm_mday))
+			{  //day con't be any previous day
 				dayPrompt();
-				dateInput = "";
+				dateInput.clear();
 				getline(cin >> ws, dateInput);
-				passedValid = false;
-			}
-			else
-			{
-				passedValid = true;
-				break;
+				passedValid = 0;
+				continue;
 			}
 		}
 
@@ -433,26 +442,24 @@ int main() {
 		case 1: case 3: case 5: case 8: case 10: case 12: //jan, mar, may, july, aug, oct, dec
 			if (date.day > 31) {	//day did not correspond to the max day of the month
 				dayPrompt();
+				dateInput.clear();
 				getline(cin >> ws, dateInput);
 				passedValid = 0;
 			}
-			break;
 		case 2: //feb
 			if (date.day > 28) {	//day did not correspond to the max day of the month
 				dayPrompt();
+				dateInput.clear();
 				getline(cin >> ws, dateInput);
 				passedValid = 0;
-
 			}
-			break;
 		case 4: case 6: case 7: case 9: case 11: //april, june, sept, nov
 			if (date.day > 30) {	//day did not correspond to the max day of the month
 				dayPrompt();
+				dateInput.clear();
 				getline(cin >> ws, dateInput);
 				passedValid = 0;
-
 			}
-			break;
 		}
 	} while (!passedValid);
 
@@ -593,9 +600,8 @@ int main() {
 	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
 	cout << "\t\t\t " << char(200);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(188) << endl;
 	gotoxy(76, 12);
-	getline(cin >> ws, num_of_passengers); //input of no. of passenger
+	getline(cin >> ws, num_of_passengers); //input of the no. of passenger
 	do {
-
 		stringstream convertString(num_of_passengers);
 		convertString >> num_of_passengers;
 		if (!(inputValidation_passed(num_of_passengers)))
@@ -615,6 +621,7 @@ int main() {
 			passedValid = true;
 			break;
 		}
+
 	}
 	while (!passedValid);
 
