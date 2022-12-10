@@ -185,6 +185,7 @@ void loading() {
 
 // Press Any Key to Proceed
 void any_keypress() {
+	Color(241);
 	cout << char(201);      for (int i = 0; i < 66; i++) { cout << char(205); }      cout << char(187) << endl;
 	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
 	cout << "\t\t\t " << char(186) << setw(67) << char(186) << endl;
@@ -494,7 +495,7 @@ int main() {
 	cout << logo;
 	//prints all of available trip time destinations
 	cout << "\n\n\n\n\t\t\t\t      " << char(201);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(187) << endl;
-	cout << "\t\t\t\t      " << char(186) << "            \xfe RETURN FLIGHT \xfe           " << char(186) << endl;
+	cout << "\t\t\t\t      " << char(186) << "            \xfe ONWARD FLIGHT \xfe           " << char(186) << endl;
 	cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
 	cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
 	cout << "\t\t\t\t      " << char(186) << "\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0 FLIGHT SCHEDULES \xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0" << char(186) << endl;
@@ -751,7 +752,7 @@ int main() {
 		cout << logo;
 		//prints all of available trip time destinations
 		cout << "\n\n\n\n\t\t\t\t      " << char(201);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(187) << endl;
-		cout << "\t\t\t\t      " << char(186) << "            \xfe ONWARD FLIGHT \xfe           " << char(186) << endl;
+		cout << "\t\t\t\t      " << char(186) << "            \xfe RETURN FLIGHT \xfe           " << char(186) << endl;
 		cout << "\t\t\t\t      " << char(204);  for (int i = 0; i < 40; i++) { cout << char(205); }  cout << char(185) << endl;
 		cout << "\t\t\t\t      " << char(186) << "                                        " << char(186) << endl;
 		cout << "\t\t\t\t      " << char(186) << "\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0 FLIGHT SCHEDULES \xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0\xb0" << char(186) << endl;
@@ -1066,8 +1067,14 @@ int main() {
 
 	cout << fixed << setprecision(2); //Set max decimals to print
 
-	//pause program so user can review or check the booking summary
+
+	// Output: Do Loading before showing the summary
 	system("cls");
+	cout << logo;
+	loading();
+	system("cls");
+
+	//pause program so user can review or check the booking summary
 	//prints out booking summary of reservation
 	cout << logo;
 	cout << "\n\n\n\t\t\t" << char(201);      for (int i = 0; i < 67; i++) { cout << char(205); }      cout << char(187) << endl;
@@ -1156,7 +1163,7 @@ int main() {
 	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Total: "; Color(241); cout << setw(40) << char(186) << endl;
 	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
-	cout << "\t\t      " << char(186); Color(240); cout << setw(37) << "Enter Payment: P "; Color(241); cout << setw(40) << char(186) << endl;
+	cout << "\t\t      " << char(186); Color(240); cout << setw(37) << "Enter Payment: P "; Color(241); cout << setw(38) << char(186) << endl;
 	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << setw(35) << "Change: "; Color(241); cout << setw(40) << char(186) << endl;
 	cout << "\t\t      " << char(186) << setw(75) << char(186) << endl;
@@ -1165,7 +1172,7 @@ int main() {
 	gotoxy(58, 14);
 	Color(240); cout << "P " << fee.final; Color(241); cout << endl;
 
-	gotoxy(58, 16);
+	gotoxy(60, 16);
 	getline(cin >> ws, payInput); //input of payment
 
 	//loop to validate whether input string has any other characters other than numeric
@@ -1174,7 +1181,7 @@ int main() {
 		if (!(inputValidation_passed(payInput)))
 		{
 			gotoxy(1, 16);
-			cout << "                     " << char(186); Color(240); cout << setw(37) << "Invalid Payment: P "; Color(241); cout << setw(40) << char(186) << endl;
+			cout << "                     " << char(186); Color(240); cout << setw(37) << "Invalid Payment: P "; Color(241); cout << setw(38) << char(186) << endl;
 			gotoxy(60, 16);
 			payInput.clear();
 			getline(cin >> ws, payInput);
@@ -1187,7 +1194,7 @@ int main() {
 		if (fee.payment < fee.final)
 		{
 			gotoxy(1, 16);
-			cout << "                     " << char(186); Color(240); cout << setw(37) << "Invalid Payment: P "; Color(241); cout << setw(40) << char(186) << endl;
+			cout << "                     " << char(186); Color(240); cout << setw(37) << "Invalid Payment: P "; Color(241); cout << setw(38) << char(186) << endl;
 			gotoxy(60, 16);
 			payInput.clear();
 			getline(cin >> ws, payInput);
