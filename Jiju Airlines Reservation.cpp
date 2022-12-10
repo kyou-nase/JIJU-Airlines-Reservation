@@ -42,7 +42,7 @@ bool arrow_keys() {
 	gotoxy(1, 14);
 	ShowConsoleCursor(false); //make cursor invisible
 	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << "\x10YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
-	yn = 'Y';
+	yn = ' ';
 	gotoxy(54, 14);
 	system("pause>nul");
 	while (running) { //run a loop with a bool as a condition
@@ -66,7 +66,7 @@ bool arrow_keys() {
 				running = false; //sets bool value to false to stop loop
 				gotoxy(1, 1);
 				break;
-			case 'n': case 'N': // ends program if NO isthe choice
+			case 'n': case 'N': // ends program if NO is the choice
 				system("cls");
 				cout << logo;
 				cout << "\n\n\n\t\t\t\t\t      Thank You! And Goodbye!";
@@ -1033,7 +1033,7 @@ int main() {
 
 			passenger.baggage[passenger.index] = stoi(baggageInput);
 
-			if (passenger.baggage[passenger.index] > 30 || passenger.baggage[passenger.index] < 1)
+			if (passenger.baggage[passenger.index] > 30 || passenger.baggage[passenger.index] < 0)
 			{
 				gotoxy(1, 23);
 				cout << "\t\t      " << char(186); Color(240); cout << "                Invalid Baggage Weight (Kg): "; Color(241); cout << setw(30) << char(186) << endl;
@@ -1233,6 +1233,7 @@ int main() {
 
 	if (arrow_keys()) //If user want to book another, rerun program
 	{
+		system("cls");
 		main();
 	}
 }
