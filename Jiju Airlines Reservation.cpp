@@ -1,4 +1,4 @@
-// Jiju Airlines Reservation v.0.1.4
+// Jiju Airlines Reservation v.1.0.0
 
 #include <iostream> 	//library of standard input/output streams
 #include <iomanip> 		//library containing functions manipluting outputs such as setw and setprecision
@@ -1067,7 +1067,7 @@ int main() {
 
 	cout << fixed << setprecision(2); //Set max decimals to print
 
-
+	ShowConsoleCursor(false);
 	// Output: Do Loading before showing the summary
 	system("cls");
 	cout << logo;
@@ -1099,7 +1099,7 @@ int main() {
 		cout << "\t\t\t" << char(186) << "   \t\t\t\t\t\t\t\t    " << char(186) << endl;
 		cout << "\t\t\t" << char(186); Color(240); cout << "     Return Date: " << "\t\t\t\t   "; Color(241); cout << setw(18) << char(186) << endl;
 		gotoxy(74, 18);
-		Color(240); cout << date.rtDay << "/" << date.rtMonth << "/" << date.rtYear << " " << receipt.rtTime; Color(241);
+		cout << date.rtDay << "/" << date.rtMonth << "/" << date.rtYear << " " << receipt.rtTime; Color(241);
 		gotoxy(1, 19);
 		receipt.space += 2; //Add two spaces in the receipt
 	}
@@ -1154,8 +1154,9 @@ int main() {
 	cout << "\n\n\t\t\t ";
 	any_keypress();
 
+	// Input: Payment
+	ShowConsoleCursor(true);
 	cout << logo;
-	//payment
 	cout << "\n\n\n\t\t      " << char(201);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(187) << endl;
 	cout << "\t\t      " << char(186); Color(240); cout << "\t\t\t               \xfe PAYMENT \xfe    \t                         "; Color(241); cout << char(186) << endl;
 	cout << "\t\t      " << char(204);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(185) << endl;
@@ -1214,6 +1215,7 @@ int main() {
 	}
 
 	//pause program so user can review or check the booking summary
+	ShowConsoleCursor(false);
 	cout << "\n\n\n\n\t\t\t ";
 	any_keypress();
 
