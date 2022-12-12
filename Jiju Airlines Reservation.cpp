@@ -42,7 +42,7 @@ bool arrow_keys() {
 	gotoxy(1, 14);
 	ShowConsoleCursor(false); //make cursor invisible
 	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << "\x10YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
-	yn = ' ';
+	yn = 'Y';
 	gotoxy(54, 14);
 	system("pause>nul");
 	while (running) { //run a loop with a bool as a condition
@@ -70,6 +70,7 @@ bool arrow_keys() {
 				system("cls");
 				cout << logo;
 				cout << "\n\n\n\t\t\t\t\t      Thank You! And Goodbye!";
+				Sleep(10000);
 				exit(0);
 				break;
 			}
