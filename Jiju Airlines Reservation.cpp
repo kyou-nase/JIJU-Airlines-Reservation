@@ -1,4 +1,4 @@
-// 	Jiju Airlines Reservation v.1.1.0
+// 	Jiju Airlines Reservation v.1.1.5
 
 #include <iostream> 	//library of standard input/output streams
 #include <iomanip> 		//library containing functions manipluting outputs such as setw and setprecision
@@ -43,11 +43,10 @@ void arrow_keys() { //Function to use arrow keys as input in yes or no inputs
 	gotoxy(50, 14);
 	gotoxy(1, 14);
 	ShowConsoleCursor(false); //make cursor invisible
-	cout << "\t\t\t\t"; Color(241); cout << char(186) << "                 " << "\x10YES"; Color(240); cout << "       NO                     "; Color(241); cout << char(186) << endl;
-	yn = 'Y';
+	cout << "\t\t\t\t"; Color(241); cout << char(186); Color(240); cout << "                 " << " YES" << "       NO                     "; Color(241); cout << char(186) << endl;
+	yn = ' ';
 	gotoxy(54, 14);
 	while (running) { //run a loop with a bool as a condition
-
 		if (GetAsyncKeyState(VK_RIGHT)) { //detect if left arrow key is pressed
 			ShowConsoleCursor(false); //make cursor invisible
 			gotoxy(1, 14);
@@ -1170,6 +1169,7 @@ int main() {
 	//Pause program to let user evaluate the Booking Summary
 	cout << "\n\n\t\t\t ";
 	any_keypress();
+	ShowConsoleCursor(true);
 	cout << logo;
 	//Output: Payment window that displays final due amount, and asks the user to input paymnet
 	cout << "\n\n\n\t\t      " << char(201);  for (int i = 0; i < 74; i++) { cout << char(205); }  cout << char(187) << endl;
