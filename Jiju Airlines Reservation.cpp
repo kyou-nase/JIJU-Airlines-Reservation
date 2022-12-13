@@ -240,7 +240,7 @@ int main() {
 
 	int flightType;
 	char yn = 'x';
-	bool running = true, passedValid = true;
+	bool running = true, passedValid = true, haveMinors = false, haveAdults = false;
 
 	time_t timeNow = time(0); 				//Using ctime library, get current time from local system
 	tm* localTime = localtime(&timeNow);
@@ -296,6 +296,8 @@ int main() {
 		cout << "\t\t\t  " << char(186); Color(240); cout << "   INVALID INPUT, PLEASE RE-ENTER TYPE OF RESERVATION (1-2):   "; Color(241); cout << char(186) << endl;
 		gotoxy(87, 12);
 		flightType = 0;
+		cin.clear();
+		cin.ignore();
 		cin >> flightType;
 	}
 
@@ -326,10 +328,8 @@ int main() {
 	cout << "\t\t\t\t      " << char(186); Color(240); cout << "      Please Refer from the Above       "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t      " << char(186); Color(240); cout << " And Enter Desired Destination(A - D):  "; Color(241); cout << char(186) << endl;
 	cout << "\t\t\t\t      " << char(200);      for (int i = 0; i < 40; i++) { cout << char(205); }      cout << char(188) << endl;
-	gotoxy(77, 23);
-    cin.clear(); //Clear and ignore last input to not interfere next input of user
-	cin.ignore(INT_MAX, '\n'); 
-	getline(cin, destination); 	//Input of user, used getline because of string properties
+	gotoxy(77, 23); 
+	getline(cin >> ws, destination); 	//Input of user, used getline because of string properties
 
 	// Process: Destination Selection [Input Validation]
 	while ((destination[0] > 'd' || destination[0] < 'a') && (destination[0] > 'D' || destination[0] < 'A') || (destination.length() != 1)) { //input validation if it only contains the letters A-D or it exceeds one character
@@ -1008,8 +1008,6 @@ int main() {
 				passedValid = false;
 				continue;
 			}
-
-			bool haveMinors = false, haveAdults = false;
 
 			if (passenger.age[passenger.index] <= 19)
 			{
