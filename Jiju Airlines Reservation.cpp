@@ -246,6 +246,7 @@ int main() {
 	tm* localTime = localtime(&timeNow);
 
 	// Input: Welcome Screen [Y/N]
+	system("Title JIJU AIRLINES");
 	system("cls");
 	system("color f1"); //Set the main color of text and backround of program to Light White Backround and Light Blue Texts
 	cout << logo;
