@@ -1,6 +1,6 @@
 # JIJU Airlines Reservation
 
-![image](https://user-images.githubusercontent.com/67418265/207076791-19e11fce-78a5-4462-a0f6-36c5b0fd0faf.png)
+![image](https://user-images.githubusercontent.com/67418265/207397089-199c33cd-b5eb-4e92-acc0-02c25907687e.png)
 
 ## COMPUTER PROGRAMMING 1 - (ITC111L) 
 
