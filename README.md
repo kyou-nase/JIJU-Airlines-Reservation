@@ -22,7 +22,7 @@ An airline ticketing system is a program used to make a ticket or receipt of a f
 
 ### III. Objectives
 The main objective of this project is to help passengers book a flight in an efficient way without taking a huge amount of time processing. 
-Example: 
+
 1.	To develop a program using C++ that enables to reserve customers their desired dates and destinations in a certain flight.
 2.	To utilize advance programming concepts such as structure, use of advanced functions and different loops to implement the system. 
 
@@ -133,4 +133,7 @@ Figure 14 will then asks the user whether they would like to book again, in whic
 See: **[Jiju Airlines Reservation.cpp](https://github.com/kyou-nase/Jiju-Airlines-Reservation/blob/master/Jiju%20Airlines%20Reservation.cpp)**
 
 ### VIII. Conclusion
-To be filled...
+Understanding advanced programming concepts in development of systems is highly recommended especially when using languages using C++ due to the fact that advanced concepts make a task to be easily done without any error. Users usually find it helpful because the workload of compiling and computing will be lessened.
+
+Airline reservations usually have a system that is used for flight booking. However, some systems don’t work properly due to the fact that sometimes, developers don’t use advanced techniques to make their program shorter and easier to understand, resulting in even harder work in the debugging process. This is the reason why future programmers need to develop their full potential and use all the existing features of a language to make a better program.
+
