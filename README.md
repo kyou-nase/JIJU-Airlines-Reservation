@@ -5,7 +5,7 @@
 ## COMPUTER PROGRAMMING 1 - (ITC111L) 
 
 ## TABLE OF CONTENTS
-* [I. Inroduction](#i-introduction)
+* [I. Introduction](#i-introduction)
 * [II. Description of the Project](#ii-description-of-the-project)
 * [III. Objectives](#iii-objectives)
 * [IV. Significance of the Study](#iv-significance-of-the-study)
@@ -15,16 +15,16 @@
 * [VIII. Conclusion](#viii-conclusion)
 
 ### I. Introduction
-In today’s generation, Innovation is the key in order to survive and prolong the human civilization. Our society has invented many things in terms of technology that benefit human labor and other daily activities. From creating a plan, framework or prototype, all of those will be applied into a system and will help technology improve. As students of the course BS Information Technology, we decided to conduct research on how to create a simple airline ticketing system in order to get a grasp on how a ticketing system works and to think of the ways to improve it in the near future. We suggest this method due to the fact that we want to make the user interaction friendly to all users without assistance.
+In the modern information era, the wealth of the world’s information can be accessed through a variety of devices. Technology that was once expensive and limited to only the privileged few has now advanced and become far cheaper (Edwards, 2009). In today’s generation, Innovation is the key in order to survive and prolong the human civilization. Our society has invented many things in terms of technology that benefit human labor and other daily activities. From creating a plan, framework or prototype, all of those will be applied into a system and will help technology improve. As students of the course of Bachelor of Science in Information Technology, we decided to conduct research on how to create a simple airline ticketing system in order to get a grasp on how a ticketing system works and to think of the ways to improve it in the near future. We suggest this method due to the fact that we want to make the user interaction friendly to all users without assistance.
 
 ### II. Description of the Project
-An airline ticketing system is a program used to make a ticket or receipt of a flight schedule of a passenger. The purpose of this is to make a flight booking faster and more efficient in a way such that the user will just need to press or input certain values in order to select the flight wanted. This includes the type of trip, destination, date of flight, number of passengers, baggage weight, and the whole receipt. 
+An airline ticketing system is a program used to make a ticket or receipt of a flight schedule of a passenger. The purpose of this project is to make flight booking faster and more efficient in a way such that the user will only need to type in or input certain values in order to select the flight wanted. This includes the type of trip, destination, date of flight, number of passengers, baggage weight, and the whole receipt. 
 
 ### III. Objectives
 The main objective of this project is to help passengers book a flight in an efficient way without taking a huge amount of time processing. 
 
 1.	To develop a program using C++ that enables to reserve customers their desired dates and destinations in a certain flight.
-2.	To utilize advance programming concepts such as structure, use of advanced functions and different loops to implement the system. 
+2.	To utilize advance programming concepts such as structure, use of advanced functions, use of time library and different loops to implement the system. 
 
 ### IV. Significance of the Study
 This project will be significant due to the fact that Airline ticketing usually takes a lot of time and causes delayed actions in flights. This program is a way to shorten the time taken and give passengers convenience.  
@@ -33,7 +33,8 @@ This project will be significant due to the fact that Airline ticketing usually 
 The project of the researchers solely focuses only on providing passengers convenience in booking a flight. The user can input a destination and date of flight of their choice which they can print out. It will also provide a receipt containing the price of the said flight.
 
 #### Delimitations of the Study
-The study has its own limitations which will be discussed: This study does not cover the choices of private, economy and business class flight. It only has 4 choices in places in which all of them are not international destinations. This program does not include any discounts nor insurance fees. 
+The study has its own limitations, in which will be discussed: 
+The program may vary and can be or cannot be applicable to a company or any other institutions, due to the fact that there are no such existing database, in which the user’s input and logs can be stored. Furthermore, since there are no such existing database, implementaion of security are not required in the program. The study also does not cover the choices of a private, economy and business class flights. Moreover, there are only has 4 choices of Destinations in which all of them are Domestic Flights only, hence there are no International Flight Destinations available. Lastly, the program does not include any other children or senior discounts nor there are any insurance fees also. 
 
 ### VI. Screen Output 
 
@@ -133,7 +134,7 @@ Figure 14 will then asks the user whether they would like to book again, in whic
 See: **[Jiju Airlines Reservation.cpp](https://github.com/kyou-nase/Jiju-Airlines-Reservation/blob/master/Jiju%20Airlines%20Reservation.cpp)**
 
 ### VIII. Conclusion
-Understanding advanced programming concepts in development of systems is highly recommended especially when using languages using C++ due to the fact that advanced concepts make a task to be easily done without any error. Users usually find it helpful because the workload of compiling and computing will be lessened.
-
-Airline reservations usually have a system that is used for flight booking. However, some systems don’t work properly due to the fact that sometimes, developers don’t use advanced techniques to make their program shorter and easier to understand, resulting in even harder work in the debugging process. This is the reason why future programmers need to develop their full potential and use all the existing features of a language to make a better program.
+Understanding advanced programming concepts in the development of systems is highly recommended especially when using languages such as C++ due to the fact that implementing advanced concepts makes a task to be easily done without any error. Users usually find it helpful as the workload of compiling and computing will be lessened.
+ 
+Airline Reservations usually have a system that is used for booking a flight. However, some systems does not work properly due to the fact that sometimes, developers don’t use advanced techniques to make their program shorter, easier to understand and more efficient, resulting in an even harder work in the debugging process. This is the reason why future programmers need to develop their full potential and use all of the existing features of a language to create a better program.
 
