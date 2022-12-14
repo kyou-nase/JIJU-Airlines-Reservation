@@ -477,7 +477,7 @@ int main() {
 		//Check first what month is the date, to indicate what is max day
 		if(date.month == 1 || date.month == 3 || date.month == 5 || date.month == 8 || date.month == 10 || date.month == 12) //jan, mar, may, july, aug, oct, dec
 		{
-			if (date.day > 31) {	//day did not correspond to the max day of the month
+			if (date.day > 31 || date.day < 1) {	//day did not correspond to the max day of the month
 				dayPrompt();
 				dateInput.clear();
 				getline(cin >> ws, dateInput);
@@ -486,7 +486,7 @@ int main() {
 		}
 		else if (date.month == 2) //feb
 		{
-			if (date.day > 28) {	//day did not correspond to the max day of the month
+			if (date.day > 28 || date.day < 1) {	//day did not correspond to the max day of the month
 				dayPrompt();
 				dateInput.clear();
 				getline(cin >> ws, dateInput);
@@ -495,7 +495,7 @@ int main() {
 		}
 		else    //april, june, sept, nov
 		{
-			if (date.day > 30) {	//day did not correspond to the max day of the month
+			if (date.day > 30 || date.day < 1) {	//day did not correspond to the max day of the month
 				dayPrompt();
 				dateInput.clear();
 				getline(cin >> ws, dateInput);
@@ -738,14 +738,14 @@ int main() {
 			//Check first what month is the date, to indicate what is max day
 			if(date.rtMonth == 1 || date.rtMonth == 3 || date.rtMonth == 5 || date.rtMonth == 8 || date.rtMonth == 10 || date.rtMonth == 12) //jan, mar, may, july, aug, oct, dec
 			{
-				if (date.rtDay > 31) {	//day did not correspond to the max day of the month
+				if (date.rtDay > 31 || date.rtDay < 1) {	//day did not correspond to the max day of the month
 					dayPrompt();
 					dateInput.clear();
 					getline(cin >> ws, dateInput);
 					passedValid = 0;
 				}
 			}
-			else if (date.rtMonth == 2) //feb
+			else if (date.rtMonth == 2 || date.rtDay < 1) //feb
 			{
 				if (date.rtDay > 28) {	//day did not correspond to the max day of the month
 					dayPrompt();
@@ -756,7 +756,7 @@ int main() {
 			}
 			else    //april, june, sept, nov
 			{
-				if (date.rtDay > 30) {	//day did not correspond to the max day of the month
+				if (date.rtDay > 30 || date.rtDay < 1) {	//day did not correspond to the max day of the month
 					dayPrompt();
 					dateInput.clear();
 					getline(cin >> ws, dateInput);
